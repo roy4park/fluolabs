@@ -1,0 +1,18 @@
+ background(0, mouseX, mouseY)
+  fill(255) 
+    noStroke()
+    rect(0, 700, 1100, 150)
+    
+    ellipse(550, 600, 225, 225)
+    ellipse(550, 425, 175, 175)
+    ellipse(550, 300, 100, 100)
+
+    fill(0)
+    ellipse(531, 284, 10, 10)
+    ellipse(567, 284, 10, 10)
+
+    fill(mouseX, 0, mouseY)
+    triangle(547, 298, 527, 305, 550, 309)
+   
+    stroke(0)
+    line(467,319,800,470)
