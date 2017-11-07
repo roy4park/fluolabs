@@ -1,0 +1,79 @@
+#sketch.py
+from star import Star
+
+stars = [] 
+
+def setup():
+    #size(1000, 1000)
+    fullScreen()
+    for i in range(800):
+        stars.append(Star())
+     
+def draw():
+    speed = map(mouseX, 0, width, 0, 50)
+    background(0)
+    translate(width/2, height/2)
+    for i in range(400):
+        stars[i].update(speed)
+        stars[i].show()
+        
+#star.py
+class Star():
+    def __init__(self):
+        self.x = random(-width, width)
+        self.y = random(-height, height)
+        self.z = random(0, width)
+
+        self.pz = self.z
+
+        self.R = random(255)
+        self.G = random(255)
+        self.B = random(255)
+        
+        
+        self.mycolor = round(random(3))
+      
+        
+          
+    def update(self, speed):
+        self.z = self.z - speed
+        if self.z < 1:
+            self.z = width
+            self.x = random(-width, width)
+            self.y = random(-height, height)
+
+            self.pz = self.z
+
+    def show(self):
+   # fill(255)
+           
+        if (self.mycolor == 0):
+            fill(255, 0, 0)
+        elif (self.mycolor == 1):
+            fill(0, 255, 0)
+        else:
+            fill(0, 0, 255)
+          
+           
+        noStroke()
+
+        sx = map(self.x / self.z, 0, 1, 0, width)
+        sy = map(self.y / self.z , 0, 1, 0, height)
+
+        r = map(self.z, 0, width, 16, 0)
+        if (self.mycolor == 0):
+            rect(sx, sy, r, r)
+        else:
+            ellipse(sx, sy, r, r)
+
+      
+        px = map(self.x / self.pz, 0, 1, 0, width)
+        py = map(self.y / self.pz , 0, 1, 0, height)
+        
+        
+        
+        stroke(255)
+        line(px, py,  sx, sy)
+        self.pz = self.z
+
+   
