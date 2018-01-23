@@ -1,0 +1,40 @@
+def setup():
+    global rcolor, s, ps, x, y, xspeed, yspeed
+    #size(400, 400)
+    fullScreen()
+    rcolor = color(random(255), random(255), random(255))
+    s = second()
+    ps = s- 1
+    
+    x = random(width)
+    y = random(height)
+    xspeed = 1   
+    yspeed = 1
+def draw():
+    global rcolor , s , ps, x, y, xspeed, yspeed
+    background(random(255), random(255), random(255))
+    stroke(255)
+    textSize(80)
+
+    # Get hour, minuites, and seconds    
+    h = hour()
+    m = minute()
+    s = second() 
+    
+    if (s != ps):
+        rcolor = color(random(255), random(255), random(255))
+        ps = s
+    
+        
+    if (x <0 or x > width):
+        xspeed = -1 * xspeed
+    if (y < 0 or y > height):
+        yspeed = -1 * xspeed
+            
+    x = x + xspeed
+    y = y + yspeed
+    fill(rcolor)
+    # Diplay on the screen, need to convert integer to string
+    text(str(h) + ":" + str(m) + ":" + str(s), x, y)
+        
+    
