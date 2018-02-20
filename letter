@@ -1,0 +1,35 @@
+symbolSize = 20
+symbols_x = []
+symbols_y = []
+
+NUM = 100
+def setup():
+    global ch, x, y, pause
+    size(800, 800)
+    
+    msfont = loadFont("data/MS-Gothic-48.vlw")
+    textFont(msfont, symbolSize)
+    ch = unichr(0x30A0 + int(random(96)))
+    
+    for i in range(NUM):
+        symbols_x.append(random(width))
+        symbols_y.append(random(-1000, 0))
+    
+    pause = False        
+def draw():
+    global x, y
+
+    background(random(255),random(255),random(255))
+    fill(random(255),random(255),random(255))
+   
+    for i in range(NUM):
+        ch = unichr(0x30A0 + int(random(96)))
+        text(ch, symbols_x[i], symbols_y[i])
+        if (pause == False):
+            symbols_y[i] =  symbols_y[i] + 3
+ 
+        if (symbols_y[i] > height):
+            symbols_y[i] = 0
+def keyPressed():
+    global pause 
+    pause = not pause
