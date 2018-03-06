@@ -1,0 +1,139 @@
+import fluo
+
+UP = 0
+RIGHT = 1
+DOWN = 2
+LEFT = 3
+
+def setup():
+    global angle
+    fullScreen()
+    #size(400, 400)
+    angle = 0
+    background(0)
+    
+def draw():
+    global annaX, annaY, annaDir, angle
+
+    #background(0)
+    translate(width/2, height/2)
+    annaX = 0
+    annaY = 0
+    annaDir = RIGHT
+    
+    #fluo.showGrid()
+    
+    #stroke(random(256), random(256), random(256))
+    rotate(radians(angle))
+    for j in range(3): 
+        if (j % 3 == 0):
+            stroke(255, 0, 0)
+        elif (j % 3 == 1):
+            stroke(0, 255, 0)
+        else:
+            stroke(0, 0, 255)
+        for i in range(4):
+            moveForward()
+            turn(RIGHT)
+            
+        rotate(radians(120))
+            
+
+    angle += 1
+    
+    
+def moveForward():
+    global annaX, annaY, annaDir
+    x = annaX
+    y = annaY
+    dir = annaDir
+     
+    if (dir == UP):
+        line(x, y, x, y - 100)
+        annaY = y - 100
+    elif (dir == RIGHT):
+        line(x, y, x + 100, y)
+        annaX = x + 100
+    elif (dir == DOWN):
+        line(x, y, x, y + 100)
+        annaY = y + 100
+    else:
+        line(x, y, x - 100, y)
+        annaX = x - 100
+
+
+def turn(dir=RIGHT):
+    global annaDir
+    if (dir == RIGHT):
+        annaDir = annaDir + 1
+    else: 
+        annaDir = annaDir - 1
+    
+    if (annaDir > 3):
+        annaDir = annaDir % 4
+        
+    if (annaDir < 0):
+        annaDir = annaDir + 4
+    
+    
+
+fluo.py
+initialized = False
+
+def showGrid(r=20, lineColor=155, lineWeight=1, index=False, w=None, h=None):
+    """Display grid lines"""
+    global nRows, nCols, resolution, initialized
+    if (w == None):
+        w = width
+    if (h == None):
+        h = height
+
+    if (initialized == False):
+        nRows = h/r
+        nCols = w/r
+        initialized = True
+        resolution = r
+    
+    pushStyle()
+    stroke(lineColor)
+    strokeWeight(1)
+    textSize(12)
+    for i in range(nRows + 1):
+        line(0, r*i, w, r*i)
+    for i in range(nCols + 1):
+        line(r*i, 0, r*i, h)
+        
+    if (index):
+        fill(255, 0, 0)
+        for i in range(nRows):
+            text(str(i), 0, r*(i+1))
+        fill(0)
+        for i in range(nCols):
+            text(str(i), r*(i), 10)
+    else:
+        fill(150)
+        text("   0", 0, 10)
+        text(str(w), w - 20, 10)
+        fill(255, 0, 0)
+        text("0", 0, 10)
+        text(str(h), 0, h)
+        
+    popStyle()
+        
+# Renders a vector object 'v' as an arrow and a position 'loc'
+def drawVector(v, pos, scayl):
+    pushMatrix()
+    arrowsize = 6
+    # Translate to position to render vector
+    translate(pos.x, pos.y)
+    stroke(0)
+    strokeWeight(2)
+    # Call vector heading function to get direction (pointing up is a heading of 0)
+    rotate(v.heading2D())
+    # Calculate length of vector & scale it to be bigger or smaller if necessary
+    len = v.mag()*scayl
+    # Draw three lines to make an arrow 
+    line(0, 0, len, 0)
+    line(len, 0, len-arrowsize, +arrowsize/2)
+    line(len, 0, len-arrowsize, -arrowsize/2)
+    popMatrix()
