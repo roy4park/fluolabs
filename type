@@ -1,0 +1,29 @@
+def setup():
+    global y, ch
+    
+    size(600, 600)
+    background(220)
+    textSize(32)
+    
+    
+    fill(255, 0, 0)
+    y = 600
+    ch = 'a'
+    
+    
+def draw():
+    global y, ch
+    background(220)
+    
+    text(ch, width/2, y)
+    y = y - 10
+    if (y < 0):
+        y = height
+    
+
+def keyTyped():
+    global ch
+    print(key)            
+    fill(random(256), random(256), random(256))
+    ch = key
+    
