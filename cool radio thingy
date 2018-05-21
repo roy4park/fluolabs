@@ -1,0 +1,26 @@
+t = 0
+def setup():
+    size(600,600)
+    
+    frameRate(10) 
+    
+    
+def draw():
+    global t
+    background(random(256),random(256),random(256))
+    #background(0)
+    stroke(255)
+    
+    beginShape()
+    for i in range(width):
+        vertex(i, random(height/2))
+    endShape()
+        
+    fill(random(256),random(256),random(256))
+    beginShape()     
+    for i in range(width):
+        y = noise(t)
+        y = map(y, 0, 1, height/2, height)
+        vertex(i, y)
+        t += .01
+    endShape()
