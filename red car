@@ -1,0 +1,35 @@
+x = 50
+OverTurkey = 1
+col = 255
+
+def setup():
+    #size(800, 800)
+    fullScreen()
+
+def draw():
+    global x
+    background(random(256),random(256),random(256))
+    fill(col,0,0)
+    rect(x,height/2,150,75)
+    
+    
+    x = x + OverTurkey
+    fill(255)
+    text("Joseph Looks at his keyboard everybody say how dare u NOW!: " + str(OverTurkey), width/2, 32)
+    
+def mouseClicked():
+    global OverTurkey, chicken
+    
+    if ((mouseX > x) and (mouseX < x + 150)):
+        if ((mouseY > height/2) and (mouseY < height/2 + 75)):
+            OverTurkey = OverTurkey * -1
+            col = random(255)
+            if (OverTurkey > 0):
+                OverTurkey = OverTurkey + 1
+            elif (OverTurkey < 0 ):
+                OverTurkey = OverTurkey - 1
+    # if (OverTurkey == 1):
+    #     OverTurkey = -1
+    # elif (OverTurkey == -1):
+    #     OverTurkey = 1
+    # print(mouseX, mouseY)
