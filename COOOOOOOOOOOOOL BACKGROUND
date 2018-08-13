@@ -1,0 +1,35 @@
+star_y = []
+speed = []
+
+def setup():
+    # size(800, 800)
+    fullScreen()
+    background(0)
+    for i in range(350):
+        star_x.append(random(width))
+        star_y.append(random(height))
+        speed.append(random(0.1, 2))
+        
+def draw():
+    
+    for i in range(len(star_x)):
+        fill(mouseX, 0, mouseY)
+        ellipse(star_x[i], star_y[i], 4, 4)
+        
+    
+        star_x[i] += speed[i]
+        star_y[i] += speed[i]
+        
+        
+        if (star_x[i] - 4 > width):
+            star_x[i] = random(width)
+        if (star_y[i] - 4 > height):
+            star_y[i] = random(height)
+            
+def mouseClicked():
+    star_x.append(mouseX)
+    star_y.append(mouseY)
+    speed.append(random(0.1, 1))    
+    
+    
+    
