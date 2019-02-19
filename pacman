@@ -1,0 +1,86 @@
+# 2/11/2019
+diameter = 40
+radius = diameter/2
+mouth = 45      # open
+mSpeed = -3
+angle = 0
+speed = 1
+
+portw = 5
+porth = 100
+
+def setup():
+    global x, y
+    size(800, 600)
+    x = width/2
+    y = height/2
+    
+def draw():
+    global mouth, mSpeed, x, y
+    background(0)
+    fill(255, 255, 0)
+    
+    textSize(20)
+    text("mouth=" + str(mouth), width/2, height/4)
+    text("mSpeed=" + str(mSpeed), width/2, height/4 + 20) 
+         
+    push()
+    translate(x, y)
+    rotate(radians(angle))
+    arc(0, 0, diameter, diameter, radians(mouth), radians(360 - mouth))
+    pop()
+    
+    fill(255, 0, 0)
+    rect(0, height/2, portw, porth)    
+
+    rect(width - portw, .75*height, portw, porth)
+    
+    # pacman's mouth animation 
+    mouth += mSpeed
+    
+    # update mouth speed
+    if (mouth < 0 or mouth > 45):
+        mSpeed *= -1
+        
+    # update pacman's position
+    if (angle == 0 or angle == 180):  # RIGHT or LEFT
+        x += speed
+    elif (angle == 90 or angle == 270):  # DOWN or UP
+        y += speed
+        
+    # check boundary
+    if (x + radius > width):
+        if (.75*height < y and y < .75*height + porth):
+            x = radius
+            y = height/2 + porth/2
+        else:
+            x = widht - radius
+    elif (x - radius < 0):
+        if (height/2 < y and y < height/2 + porth):
+            x = width - radius
+            y = .75*height + porth/2
+        else:
+            x = radius
+            
+            
+    if (y + radius > height):
+        y = height - radius
+    elif (y - radius < 0):
+        y = radius
+        
+
+
+def keyPressed():
+    global angle, speed
+    if (keyCode == RIGHT):
+        angle = 0
+        speed = 1
+    elif (keyCode == DOWN):
+        angle = 90
+        speed = 1
+    elif (keyCode == LEFT):
+        angle = 180
+        speed = -1
+    elif (keyCode == UP):
+        angle = 270
+        speed = -1
